@@ -3,7 +3,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -22,16 +24,23 @@ public class User {
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column
-    private String passwordHash;
-
-    @Column
+    @Column(nullable = false)
     private String firstName;
 
-    @Column
+    @Column(nullable = false)
     private String lastName;
 
     @OneToMany(mappedBy = "user")
     private List<Attempt> attempts = new ArrayList<>();
+
+    @Column(nullable = false)
+    private String password;
+    @Column(nullable = false)
+    private Instant registeredAt;
+    @Column(nullable = false)
+    private Instant updatedAt;
+    @Column(nullable = false)
+    private Role role;
+
 
 }

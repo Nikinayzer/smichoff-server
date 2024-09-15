@@ -50,6 +50,12 @@
             <version>1.18.34</version>
             <scope>provided</scope>
         </dependency>
+        <!-- Mapper?-->
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
