@@ -7,6 +7,7 @@ import nikinayzer.smichoffserver.db.repository.RouteRepository;
 import nikinayzer.smichoffserver.db.repository.UserRepository;
 import nikinayzer.smichoffserver.endpoints.dto.NewUserDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserDTO;
+import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserRegistrationResponseDTO;
 import nikinayzer.smichoffserver.endpoints.exceptions.EmailAlreadyExistsException;
 import nikinayzer.smichoffserver.endpoints.exceptions.UsernameAlreadyExistsException;
@@ -40,19 +41,19 @@ public class UserService {
     }
 
     // Converts User entity to UserDTO (no ResponseEntity here)
-    private UserDTO convertToDTO(User user) {
-        return modelMapper.map(user, UserDTO.class);
+    private UserListDTO convertToDTO(User user) {
+        return modelMapper.map(user, UserListDTO.class);
     }
 
-    public List<UserDTO> getAllUsers() {
+    public List<UserListDTO> getAllUsers() {
         return userRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    public UserDTO findById(long id) {
+    public UserListDTO findById(long id) {
         return userRepository.findUserById(id).map(this::convertToDTO).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public UserDTO findByUsername(String username) {
+    public UserListDTO findByUsername(String username) {
         return userRepository.findUserByUsername(username).stream().map(this::convertToDTO).findFirst().orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 

@@ -3,6 +3,7 @@ package nikinayzer.smichoffserver.endpoints.controllers;
 import nikinayzer.smichoffserver.db.service.UserService;
 import nikinayzer.smichoffserver.endpoints.dto.NewUserDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserDTO;
+import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserRegistrationResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,8 @@ public class UserController {
 
     // Fetch all users and return as a list of UserDTOs
     @GetMapping(path = "/users/all", produces = "application/json")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
-        List<UserDTO> usersDTO = userService.getAllUsers();
+    public ResponseEntity<List<UserListDTO>> getAllUsers() {
+        List<UserListDTO> usersDTO = userService.getAllUsers();
         return ResponseEntity.ok(usersDTO);
     }
 
