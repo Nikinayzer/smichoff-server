@@ -31,10 +31,10 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/",
-                               // "/welcome",
                                 "/users/all",
                                 "/users/register",
-                                "routes/all",
+                                "/routes/all",
+                                "/route/{id}",
                                 "/error").permitAll()
                         .anyRequest().authenticated()
                 )

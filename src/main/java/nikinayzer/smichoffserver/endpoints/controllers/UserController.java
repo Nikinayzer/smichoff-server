@@ -24,11 +24,6 @@ public class UserController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping(path = "/welcome", produces = "application/json")
-    public ResponseEntity<String> home() {
-        return ResponseEntity.ok("Welcome to Smichoff Server!");
-    }
-
     // Fetch all users and return as a list of UserDTOs
     @GetMapping(path = "/users/all", produces = "application/json")
     public ResponseEntity<List<UserListDTO>> getAllUsers() {

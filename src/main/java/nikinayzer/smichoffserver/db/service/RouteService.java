@@ -38,11 +38,11 @@ public class RouteService {
     }
 
 
-    public Route loadRouteById(long id) {
-        return routeRepository.findById(id).orElseThrow(() -> new RuntimeException("Route not found"));
+    public RouteDTO findRouteById(long id) {
+        return routeRepository.findById(id).map(this::convertToDTO).orElseThrow(() -> new RuntimeException("Route not found"));
     }
 
-    public Route loadRouteByName(String name) {
+    public Route findRouteByName(String name) {
         return routeRepository.findByName(name).orElseThrow(() -> new RuntimeException("Route not found"));
     }
 
