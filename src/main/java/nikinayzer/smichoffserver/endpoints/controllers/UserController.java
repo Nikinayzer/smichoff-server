@@ -2,7 +2,6 @@ package nikinayzer.smichoffserver.endpoints.controllers;
 
 import nikinayzer.smichoffserver.db.service.UserService;
 import nikinayzer.smichoffserver.endpoints.dto.NewUserDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserRegistrationResponseDTO;
 import org.modelmapper.ModelMapper;

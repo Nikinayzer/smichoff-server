@@ -3,6 +3,7 @@ package nikinayzer.smichoffserver.db.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,13 +33,13 @@ public class Route {
     @Column
     private String setter;
     @Column(nullable = false)
-    private Instant creationDate;
+    private LocalDate creationDate;
     @Column
     private String character;
     @Column
     private String height;
     @Column
-    private Instant plannedUntil;
+    private LocalDate plannedUntil;
     @Column(nullable = false)
     private boolean archive;
     @OneToMany(mappedBy = "route")

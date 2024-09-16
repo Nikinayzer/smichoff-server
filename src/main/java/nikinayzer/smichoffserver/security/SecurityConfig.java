@@ -34,6 +34,7 @@ public class SecurityConfig {
                                // "/welcome",
                                 "/users/all",
                                 "/users/register",
+                                "routes/all",
                                 "/error").permitAll()
                         .anyRequest().authenticated()
                 )

@@ -1,19 +1,37 @@
 package nikinayzer.smichoffserver.endpoints.dto;
 
-import java.time.Instant;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 
-public record RouteDTO(
-        Long id,
-        String holds,
-        String name,
-        String difficulty,
-        String sector,
-        String lineNumber,
-        String setter,
-        Instant creationDate,
-        String character,
-        String height,
-        Instant plannedUntil,
-        boolean archive
-) {
+import java.time.Instant;
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class RouteDTO {
+
+    private Long id;
+    private String holds;
+    private String name;
+    private String difficulty;
+    private String sector;
+
+    @JsonProperty("line_number")
+    private String lineNumber;
+
+    private String setter;
+
+    @JsonProperty("creation_date")
+    private LocalDate creationDate;
+
+    private String character;
+    private String height;
+
+    @JsonProperty("planned_until")
+    private LocalDate plannedUntil;
+
+    private boolean archive;
 }
