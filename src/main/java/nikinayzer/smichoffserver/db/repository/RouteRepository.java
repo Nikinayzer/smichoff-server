@@ -25,9 +25,7 @@ public interface RouteRepository extends CrudRepository<Route, Long> {
 
     <S extends Route> S save(S route);
 
-
     void deleteById(long id);
-
 
     boolean existsByName(String name);
 }

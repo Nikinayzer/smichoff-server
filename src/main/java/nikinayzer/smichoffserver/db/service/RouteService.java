@@ -7,6 +7,7 @@ import nikinayzer.smichoffserver.db.repository.RouteRepository;
 import nikinayzer.smichoffserver.db.repository.UserRepository;
 import nikinayzer.smichoffserver.endpoints.dto.RouteDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
+import nikinayzer.smichoffserver.endpoints.exceptions.route.NoRouteFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,11 @@ public class RouteService {
 
 
     public RouteDTO findRouteById(long id) {
-        return routeRepository.findById(id).map(this::convertToDTO).orElseThrow(() -> new RuntimeException("Route not found"));
+        return routeRepository.findById(id).map(this::convertToDTO).orElseThrow(() -> new NoRouteFoundException("Route not found"));
     }
 
     public Route findRouteByName(String name) {
-        return routeRepository.findByName(name).orElseThrow(() -> new RuntimeException("Route not found"));
+        return routeRepository.findByName(name).orElseThrow(() -> new NoRouteFoundException("Route not found"));
     }
 
     public Route createRoute(Route route) {

@@ -28,14 +28,11 @@ public class RouteController {
         List<RouteDTO> routesDTOs = routeService.getAllRoutes();
         return ResponseEntity.ok(routesDTOs);
     }
+
     // Fetch a route by its ID
     @GetMapping(path = "/route/{id}", produces = "application/json")
     public ResponseEntity<RouteDTO> getRouteById(@PathVariable("id") Long id) {
         RouteDTO routeDTO = routeService.findRouteById(id);
-        if (routeDTO != null) {
-            return ResponseEntity.ok(routeDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(routeDTO);
     }
 }

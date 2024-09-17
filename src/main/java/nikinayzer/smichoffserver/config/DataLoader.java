@@ -3,24 +3,18 @@ package nikinayzer.smichoffserver.config;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.fasterxml.jackson.databind.ser.std.DateSerializer;
-import com.fasterxml.jackson.databind.ser.std.NumberSerializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.annotation.PostConstruct;
 import nikinayzer.smichoffserver.db.entity.Route;
 import nikinayzer.smichoffserver.db.repository.RouteRepository;
 import nikinayzer.smichoffserver.endpoints.dto.RouteDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
@@ -28,6 +22,7 @@ public class DataLoader {
     private final static String ROUTES_JSON = "routes.json";
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    private static final Logger logger = LoggerFactory.getLogger(DataLoader.class);
 
     static {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
@@ -62,7 +57,7 @@ public class DataLoader {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("Failed to load data", e);
             throw new RuntimeException("Failed to load data", e);
         }
     }

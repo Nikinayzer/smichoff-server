@@ -9,13 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class UserController {
 
     @Autowired
@@ -23,6 +21,12 @@ public class UserController {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @GetMapping(path = "/user/{id}", produces = "application/json")
+    public ResponseEntity<UserListDTO> getUserById(@PathVariable("id") Long id) {
+        UserListDTO userDTO = userService.findById(id);
+        return ResponseEntity.ok(userDTO);
+    }
 
     // Fetch all users and return as a list of UserDTOs
     @GetMapping(path = "/users/all", produces = "application/json")
@@ -34,18 +38,16 @@ public class UserController {
     // Register a new user, consuming a NewUserDTO and returning a UserDTO
     @PostMapping(path = "/users/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserRegistrationResponseDTO> register(@RequestBody NewUserDTO newUserDTO) {
-        // Check for existing username or email
-        if (userService.existsByUsername(newUserDTO.getUsername())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(null);
-        }
-        if (userService.existsByEmail(newUserDTO.getMail())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(null);
-        }
+//        if (userService.existsByUsername(newUserDTO.getUsername())) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT)
+//                    .body(null);
+//        }
+//        if (userService.existsByEmail(newUserDTO.getMail())) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT)
+//                    .body(null);
+//        }
         UserRegistrationResponseDTO createdUser = userService.registerNewUserAccount(newUserDTO);
 
-        // Return 201 Created status with UserDTO
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 }

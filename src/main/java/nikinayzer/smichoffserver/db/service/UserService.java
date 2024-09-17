@@ -6,11 +6,11 @@ import nikinayzer.smichoffserver.db.repository.AttemptRepository;
 import nikinayzer.smichoffserver.db.repository.RouteRepository;
 import nikinayzer.smichoffserver.db.repository.UserRepository;
 import nikinayzer.smichoffserver.endpoints.dto.NewUserDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
 import nikinayzer.smichoffserver.endpoints.dto.UserRegistrationResponseDTO;
-import nikinayzer.smichoffserver.endpoints.exceptions.EmailAlreadyExistsException;
-import nikinayzer.smichoffserver.endpoints.exceptions.UsernameAlreadyExistsException;
+import nikinayzer.smichoffserver.endpoints.exceptions.user.EmailAlreadyExistsException;
+import nikinayzer.smichoffserver.endpoints.exceptions.user.NoUserExistsException;
+import nikinayzer.smichoffserver.endpoints.exceptions.user.UsernameAlreadyExistsException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,11 +50,11 @@ public class UserService {
     }
 
     public UserListDTO findById(long id) {
-        return userRepository.findUserById(id).map(this::convertToDTO).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userRepository.findUserById(id).map(this::convertToDTO).orElseThrow(() -> new NoUserExistsException("User not found"));
     }
 
     public UserListDTO findByUsername(String username) {
-        return userRepository.findUserByUsername(username).stream().map(this::convertToDTO).findFirst().orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        return userRepository.findUserByUsername(username).stream().map(this::convertToDTO).findFirst().orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 
     public UserRegistrationResponseDTO registerNewUserAccount(NewUserDTO newUserDTO) throws EmailAlreadyExistsException, UsernameAlreadyExistsException {
