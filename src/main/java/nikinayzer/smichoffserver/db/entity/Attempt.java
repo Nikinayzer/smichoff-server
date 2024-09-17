@@ -17,15 +17,15 @@ public class Attempt {
     private Long id;
 
     @ManyToOne(optional = false)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private User user;
 
     @ManyToOne(optional = false)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     private Route route;
 
     @Column(nullable = false)
-    private Instant attemptDate;
+    private Instant date;
 
     @Column
     private Integer strengthRating;

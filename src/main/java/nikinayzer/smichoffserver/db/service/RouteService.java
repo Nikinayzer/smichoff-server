@@ -1,12 +1,10 @@
 package nikinayzer.smichoffserver.db.service;
 
 import nikinayzer.smichoffserver.db.entity.Route;
-import nikinayzer.smichoffserver.db.entity.User;
 import nikinayzer.smichoffserver.db.repository.AttemptRepository;
 import nikinayzer.smichoffserver.db.repository.RouteRepository;
 import nikinayzer.smichoffserver.db.repository.UserRepository;
 import nikinayzer.smichoffserver.endpoints.dto.RouteDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
 import nikinayzer.smichoffserver.endpoints.exceptions.route.NoRouteFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +37,7 @@ public class RouteService {
     }
 
 
-    public RouteDTO findRouteById(long id) {
+    public RouteDTO findById(long id) {
         return routeRepository.findById(id).map(this::convertToDTO).orElseThrow(() -> new NoRouteFoundException("Route not found"));
     }
 

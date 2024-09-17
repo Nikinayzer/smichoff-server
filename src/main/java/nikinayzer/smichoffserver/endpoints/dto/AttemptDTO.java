@@ -14,7 +14,7 @@ public class AttemptDTO {
     private String username;
     private Long routeId;
     private String routeName;
-    private Instant attemptDate;
+    private Instant date;
     private Integer strengthRating;
     private Integer enduranceRating;
     private String comment;

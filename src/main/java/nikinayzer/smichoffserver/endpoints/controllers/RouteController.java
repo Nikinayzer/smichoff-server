@@ -1,9 +1,7 @@
 package nikinayzer.smichoffserver.endpoints.controllers;
 
 import nikinayzer.smichoffserver.db.service.RouteService;
-import nikinayzer.smichoffserver.db.service.UserService;
 import nikinayzer.smichoffserver.endpoints.dto.RouteDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +30,7 @@ public class RouteController {
     // Fetch a route by its ID
     @GetMapping(path = "/route/{id}", produces = "application/json")
     public ResponseEntity<RouteDTO> getRouteById(@PathVariable("id") Long id) {
-        RouteDTO routeDTO = routeService.findRouteById(id);
+        RouteDTO routeDTO = routeService.findById(id);
         return ResponseEntity.ok(routeDTO);
     }
 }

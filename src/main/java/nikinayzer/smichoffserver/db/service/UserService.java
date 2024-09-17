@@ -98,11 +98,9 @@ public class UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public boolean userExists(User user) {
-        return userRepository.existsByUsername(user.getUsername()) && userRepository.existsByEmail(user.getEmail());
+    public void validateUserExists(long userId) {
+        userRepository.findById(userId)
+                .orElseThrow(() -> new NoUserExistsException("User not found"));
     }
 
-    public List<Attempt> getAttempts(User user) {
-        return attemptRepository.findByUser(user);
-    }
 }

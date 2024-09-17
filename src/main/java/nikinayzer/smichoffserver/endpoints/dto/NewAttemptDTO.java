@@ -10,12 +10,10 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewAttemptDTO {
-    private Long id;
-    private Long userId;
-    private String username;
-    private Long routeId;
-    private Instant attemptDate;
+    private Instant date;
     private Integer strengthRating;
     private Integer enduranceRating;
     private String comment;
+    private int duration;
+
 }

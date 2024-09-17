@@ -12,8 +12,15 @@ public interface AttemptRepository extends CrudRepository<Attempt, Long> {
 
     Optional<Attempt> findById(long id);
 
+
     @Query("select a from Attempt a where a.user.id = ?1")
-    List<Attempt> findByUser(User user);
+    List<Attempt> findAllByUserId(long id);
+
+    @Query("select a from Attempt a where a.route.id = ?1")
+    List<Attempt> findAllByRouteId(long routeId);
+
+    @Query("select a from Attempt a where a.user.id = ?1 and a.route.id = ?2")
+    List<Attempt> findAllByUserIdForRouteId(long userId, long routeId);
 
     <S extends Attempt> S save(S attempt);
 
