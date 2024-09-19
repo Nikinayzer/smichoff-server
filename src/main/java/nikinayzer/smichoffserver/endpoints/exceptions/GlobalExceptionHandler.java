@@ -1,4 +1,4 @@
-package nikinayzer.smichoffserver.endpoints;
+package nikinayzer.smichoffserver.endpoints.exceptions;
 
 import nikinayzer.smichoffserver.endpoints.dto.ErrorDTO;
 import nikinayzer.smichoffserver.endpoints.exceptions.route.NoRouteFoundException;

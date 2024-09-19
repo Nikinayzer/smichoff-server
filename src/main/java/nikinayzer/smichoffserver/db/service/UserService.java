@@ -1,13 +1,8 @@
 package nikinayzer.smichoffserver.db.service;
 
-import nikinayzer.smichoffserver.db.entity.Attempt;
 import nikinayzer.smichoffserver.db.entity.User;
-import nikinayzer.smichoffserver.db.repository.AttemptRepository;
-import nikinayzer.smichoffserver.db.repository.RouteRepository;
 import nikinayzer.smichoffserver.db.repository.UserRepository;
-import nikinayzer.smichoffserver.endpoints.dto.NewUserDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserRegistrationResponseDTO;
+import nikinayzer.smichoffserver.endpoints.dto.*;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.EmailAlreadyExistsException;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.NoUserExistsException;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.UsernameAlreadyExistsException;
@@ -21,26 +16,22 @@ import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static nikinayzer.smichoffserver.db.entity.Role.USER;
-
+/**
+ * Service class for User entity, contains methods for user operations
+ */
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final RouteRepository routeRepository;
-    private final AttemptRepository attemptRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, RouteRepository routeRepository, AttemptRepository attemptRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
         this.userRepository = userRepository;
-        this.routeRepository = routeRepository;
-        this.attemptRepository = attemptRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
     }
 
-    // Converts User entity to UserDTO (no ResponseEntity here)
     private UserListDTO convertToDTO(User user) {
         return modelMapper.map(user, UserListDTO.class);
     }
@@ -59,29 +50,18 @@ public class UserService {
 
     public UserRegistrationResponseDTO registerNewUserAccount(NewUserDTO newUserDTO) throws EmailAlreadyExistsException, UsernameAlreadyExistsException {
         if (existsByEmail(newUserDTO.getMail())) {
-            throw new EmailAlreadyExistsException(
-                    "There is an account with that email address:" + newUserDTO.getMail());
+            throw new EmailAlreadyExistsException("There is an account with that email address:" + newUserDTO.getMail());
         }
         if (existsByUsername(newUserDTO.getUsername())) {
-            throw new UsernameAlreadyExistsException(
-                    "There is an account with that username:" + newUserDTO.getUsername());
+            throw new UsernameAlreadyExistsException("There is an account with that username:" + newUserDTO.getUsername());
         }
-        User user = new User();
-        user.setUsername(newUserDTO.getUsername());
-        user.setEmail(newUserDTO.getMail());
-        user.setPassword(passwordEncoder.encode(newUserDTO.getPassword()));
-
-        user.setFirstName(newUserDTO.getFirstName());
-        user.setLastName(newUserDTO.getLastName());
-        user.setRole(USER);
-
-        user.setRegisteredAt(Instant.now());
-        user.setUpdatedAt(Instant.now());
+        User user = User.builder().username(newUserDTO.getUsername()).email(newUserDTO.getMail()).password(passwordEncoder.encode(newUserDTO.getPassword())).firstName(newUserDTO.getFirstName()).lastName(newUserDTO.getLastName()).roles(List.of("ROLE_USER")).isAccountNonExpired(true).isAccountNonLocked(true).isCredentialsNonExpired(true).isEnabled(true).registeredAt(Instant.now()).updatedAt(Instant.now()).build();
 
         saveUser(user);
         return modelMapper.map(user, UserRegistrationResponseDTO.class);
 
     }
+
     public void saveUser(User user) {
         userRepository.save(user);
     }
@@ -99,8 +79,7 @@ public class UserService {
     }
 
     public void validateUserExists(long userId) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new NoUserExistsException("User not found"));
+        userRepository.findById(userId).orElseThrow(() -> new NoUserExistsException("User not found"));
     }
 
 }

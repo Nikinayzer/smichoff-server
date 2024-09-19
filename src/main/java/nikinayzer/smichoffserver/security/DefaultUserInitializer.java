@@ -1,6 +1,5 @@
 package nikinayzer.smichoffserver.security;
 
-import nikinayzer.smichoffserver.db.entity.Role;
 import nikinayzer.smichoffserver.db.entity.User;
 import nikinayzer.smichoffserver.db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +10,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.List;
 
 @Component
 public class DefaultUserInitializer {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder BcryptPasswordEncoder;
 
     @Value("${smichoff.default.user.username}")
     private String userUsername;
@@ -31,9 +31,9 @@ public class DefaultUserInitializer {
     private String adminPassword;
 
     @Autowired
-    public DefaultUserInitializer(UserService userService, PasswordEncoder passwordEncoder) {
+    public DefaultUserInitializer(UserService userService, PasswordEncoder BcryptPasswordEncoder) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+        this.BcryptPasswordEncoder = BcryptPasswordEncoder;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -44,10 +44,14 @@ public class DefaultUserInitializer {
             user.setEmail("user@smichoff-server.cz");
             user.setFirstName("User");
             user.setLastName("Userov");
-            user.setPassword(passwordEncoder.encode(userPassword));  // Encoding here
-            user.setRole(Role.USER);
+            user.setPassword(BcryptPasswordEncoder.encode(userPassword));
+            user.setRoles(List.of("ROLE_USER"));
             user.setRegisteredAt(Instant.now());
             user.setUpdatedAt(Instant.now());
+            user.setAccountNonExpired(true);
+            user.setAccountNonLocked(true);
+            user.setCredentialsNonExpired(true);
+            user.setEnabled(true);
             userService.saveUser(user);
         }
 
@@ -57,10 +61,14 @@ public class DefaultUserInitializer {
             admin.setEmail("admin@smichoff-server.cz");
             admin.setFirstName("Admin");
             admin.setLastName("Adminov");
-            admin.setPassword(passwordEncoder.encode(adminPassword));  // Encoding here
-            admin.setRole(Role.ADMIN);
+            admin.setPassword(BcryptPasswordEncoder.encode(adminPassword));
+            admin.setRoles(List.of("ROLE_ADMIN"));
             admin.setRegisteredAt(Instant.now());
             admin.setUpdatedAt(Instant.now());
+            admin.setAccountNonExpired(true);
+            admin.setAccountNonLocked(true);
+            admin.setCredentialsNonExpired(true);
+            admin.setEnabled(true);
             userService.saveUser(admin);
         }
     }

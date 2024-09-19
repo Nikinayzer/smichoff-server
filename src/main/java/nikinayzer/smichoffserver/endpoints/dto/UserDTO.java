@@ -1,6 +1,8 @@
 package nikinayzer.smichoffserver.endpoints.dto;
 
 import java.time.Instant;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +19,5 @@ public class UserDTO {
     private String password;
     private Instant registeredAt;
     private Instant updatedAt;
-    private String role;
+    private List<String> roles;
 }
