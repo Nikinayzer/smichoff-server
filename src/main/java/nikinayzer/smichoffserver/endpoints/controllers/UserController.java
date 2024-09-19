@@ -1,7 +1,9 @@
 package nikinayzer.smichoffserver.endpoints.controllers;
 
 import nikinayzer.smichoffserver.db.service.UserService;
-import nikinayzer.smichoffserver.endpoints.dto.*;
+import nikinayzer.smichoffserver.endpoints.dto.user.NewUserDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.UserListDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.UserRegistrationResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

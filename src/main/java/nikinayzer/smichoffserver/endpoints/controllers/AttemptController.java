@@ -1,8 +1,8 @@
 package nikinayzer.smichoffserver.endpoints.controllers;
 
 import nikinayzer.smichoffserver.db.service.AttemptService;
-import nikinayzer.smichoffserver.endpoints.dto.AttemptDTO;
-import nikinayzer.smichoffserver.endpoints.dto.NewAttemptDTO;
+import nikinayzer.smichoffserver.endpoints.dto.attempt.AttemptDTO;
+import nikinayzer.smichoffserver.endpoints.dto.attempt.NewAttemptDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -2,7 +2,9 @@ package nikinayzer.smichoffserver.db.service;
 
 import nikinayzer.smichoffserver.db.entity.User;
 import nikinayzer.smichoffserver.db.repository.UserRepository;
-import nikinayzer.smichoffserver.endpoints.dto.*;
+import nikinayzer.smichoffserver.endpoints.dto.user.NewUserDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.UserListDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.UserRegistrationResponseDTO;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.EmailAlreadyExistsException;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.NoUserExistsException;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.UsernameAlreadyExistsException;

@@ -1,7 +1,7 @@
 package nikinayzer.smichoffserver.endpoints.controllers;
 
 import nikinayzer.smichoffserver.db.service.RouteService;
-import nikinayzer.smichoffserver.endpoints.dto.RouteDTO;
+import nikinayzer.smichoffserver.endpoints.dto.route.RouteDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

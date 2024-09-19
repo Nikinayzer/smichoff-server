@@ -1,4 +1,4 @@
-package nikinayzer.smichoffserver.endpoints.dto;
+package nikinayzer.smichoffserver.endpoints.dto.attempt;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

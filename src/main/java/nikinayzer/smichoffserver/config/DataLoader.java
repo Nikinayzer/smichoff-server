@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import jakarta.annotation.PostConstruct;
 import nikinayzer.smichoffserver.db.entity.Route;
 import nikinayzer.smichoffserver.db.repository.RouteRepository;
-import nikinayzer.smichoffserver.endpoints.dto.RouteDTO;
+import nikinayzer.smichoffserver.endpoints.dto.route.RouteDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

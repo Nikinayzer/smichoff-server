@@ -1,8 +1,8 @@
 package nikinayzer.smichoffserver.db.service;
 
 import nikinayzer.smichoffserver.db.entity.User;
-import nikinayzer.smichoffserver.endpoints.dto.AuthRequestDTO;
-import nikinayzer.smichoffserver.endpoints.dto.AuthResponseDTO;
+import nikinayzer.smichoffserver.endpoints.dto.auth.AuthRequestDTO;
+import nikinayzer.smichoffserver.endpoints.dto.auth.AuthResponseDTO;
 import nikinayzer.smichoffserver.endpoints.exceptions.auth.AuthFailedException;
 import nikinayzer.smichoffserver.security.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;

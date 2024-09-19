@@ -1,12 +1,11 @@
 package nikinayzer.smichoffserver.controllers;
 
 import nikinayzer.smichoffserver.db.service.UserService;
-import nikinayzer.smichoffserver.endpoints.dto.NewUserDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserListDTO;
-import nikinayzer.smichoffserver.endpoints.dto.UserRegistrationResponseDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.NewUserDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.UserListDTO;
+import nikinayzer.smichoffserver.endpoints.dto.user.UserRegistrationResponseDTO;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
