@@ -1,6 +1,8 @@
 package nikinayzer.smichoffserver.endpoints.exceptions;
 
+import jakarta.servlet.http.HttpServletRequest;
 import nikinayzer.smichoffserver.endpoints.dto.ErrorDTO;
+import nikinayzer.smichoffserver.endpoints.exceptions.auth.AuthFailedException;
 import nikinayzer.smichoffserver.endpoints.exceptions.route.NoRouteFoundException;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.EmailAlreadyExistsException;
 import nikinayzer.smichoffserver.endpoints.exceptions.user.NoUserExistsException;
@@ -46,9 +48,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTO> handleNoRouteFoundException(NoRouteFoundException ex) {
         return buildErrorResponse(ex.getMessage(), "No route found", HttpStatus.NOT_FOUND);
     }
+    @ExceptionHandler(AuthFailedException.class)
+    public ResponseEntity<ErrorDTO> handleAuthFailedException(AuthFailedException ex) {
+        return buildErrorResponse(ex.getMessage(), "Authentication failed", HttpStatus.UNAUTHORIZED);
+    }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorDTO> handleOtherExceptions(Exception ex) {
+    public ResponseEntity<ErrorDTO> handleOtherExceptions(Exception ex, HttpServletRequest request) {
+        String authError = (String) request.getAttribute("authError");
+        if (authError != null) {
+            return buildErrorResponse(authError, "Authentication error", HttpStatus.UNAUTHORIZED);
+        }
         return buildErrorResponse("An error occurred: " + ex.getMessage(), "Internal error", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

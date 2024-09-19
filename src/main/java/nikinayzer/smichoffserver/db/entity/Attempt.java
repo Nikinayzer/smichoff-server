@@ -27,11 +27,15 @@ public class Attempt {
     @Column(nullable = false)
     private Instant date;
 
+    @Column(nullable = false)
+    private int duration;
+
     @Column
     private Integer strengthRating;
 
     @Column
     private Integer enduranceRating;
 
+    @Column
     private String comment;
 }

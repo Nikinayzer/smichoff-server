@@ -93,6 +93,7 @@ public class AttemptService {
         attempt.setStrengthRating(newAttemptDTO.getStrengthRating());
         attempt.setEnduranceRating(newAttemptDTO.getEnduranceRating());
         attempt.setComment(newAttemptDTO.getComment());
+        attempt.setDuration(newAttemptDTO.getDuration());
 
         saveAttempt(attempt);
         return modelMapper.map(attemptRepository.save(attempt), NewAttemptDTO.class);

@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.hamcrest.Matchers.*;
-
+//todo test is broken, probably because of the required authentication
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserControllerTest {
@@ -49,7 +49,7 @@ public class UserControllerTest {
                         .lastName("Foovski")
                         .registeredAt(Instant.now())
                         .updatedAt(Instant.now())
-                        .role("USER")
+                        .roles(List.of("ROLE_USER"))
                         .build(),
                 UserListDTO.builder()
                         .id(2L)
@@ -59,7 +59,7 @@ public class UserControllerTest {
                         .lastName("Barov")
                         .registeredAt(Instant.now())
                         .updatedAt(Instant.now())
-                        .role("ADMIN")
+                        .roles(List.of("ROLE_USER", "ROLE_ADMIN"))
                         .build()
         );
 

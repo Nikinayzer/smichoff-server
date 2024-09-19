@@ -10,37 +10,41 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/attempts")
 public class AttemptController {
 
     @Autowired
     private AttemptService attemptService;
 
-    @GetMapping(path = "/attempts/{id}", produces = "application/json")
+    @GetMapping("/{id}") // Get attempt by ID
     public ResponseEntity<AttemptDTO> getAttemptById(@PathVariable long id) {
         return ResponseEntity.ok(attemptService.getById(id));
     }
-    @GetMapping(path = "/route/{id}/attempts", produces = "application/json")
-    public ResponseEntity<List<AttemptDTO>> getAllAttemptsByRouteId(@PathVariable long id) {
-        return ResponseEntity.ok(attemptService.getAttemptsByRouteId(id));
+
+    @GetMapping("/routes/{routeId}") // Get all attempts by route ID
+    public ResponseEntity<List<AttemptDTO>> getAttemptsByRouteId(@PathVariable long routeId) {
+        return ResponseEntity.ok(attemptService.getAttemptsByRouteId(routeId));
     }
 
-    @GetMapping(path = "/user/{userId}/attempts", produces = "application/json")
-    public ResponseEntity<List<AttemptDTO>> getAllAttemptsByUserId(@PathVariable long userId) {
+    @GetMapping("/users/{userId}") // Get all attempts by user ID
+    public ResponseEntity<List<AttemptDTO>> getAttemptsByUserId(@PathVariable long userId) {
         return ResponseEntity.ok(attemptService.getAllAttemptsByUserId(userId));
     }
-    @GetMapping(path = "/user/{userId}/route/{routeId}/attempts", produces = "application/json")
-    public ResponseEntity<List<AttemptDTO>> getAllAttemptsByUserIdAndRouteId(@PathVariable long userId, @PathVariable long routeId) {
+
+    @GetMapping("/users/{userId}/routes/{routeId}") // Get attempts by user ID and route ID
+    public ResponseEntity<List<AttemptDTO>> getAttemptsByUserIdAndRouteId(@PathVariable long userId, @PathVariable long routeId) {
         return ResponseEntity.ok(attemptService.getAllAttemptsByUserIdForRouteId(userId, routeId));
     }
 
-    @PostMapping(path = "/user/{userId}/route/{routeId}/attempt", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<NewAttemptDTO> registerAttempt(@RequestBody NewAttemptDTO attemptDTO, @PathVariable Long userId, @PathVariable Long routeId) {
+    @PostMapping // Register a new attempt
+    public ResponseEntity<NewAttemptDTO> registerAttempt(@RequestBody NewAttemptDTO attemptDTO, @RequestParam long userId, @RequestParam long routeId) {
         return ResponseEntity.ok(attemptService.registerAttempt(attemptDTO, userId, routeId));
     }
 
-    @PostMapping(path = "/attempts/{id}/delete", produces = "application/json")
+    @DeleteMapping("/{id}") // Delete an attempt
     public ResponseEntity<AttemptDTO> deleteAttempt(@PathVariable long id) {
         return ResponseEntity.ok(attemptService.deleteAttempt(id));
     }
 }
+
 
