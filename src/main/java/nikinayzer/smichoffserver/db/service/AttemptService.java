@@ -22,7 +22,7 @@ public class AttemptService {
     private final AttemptRepository attemptRepository;
     private final ModelMapper modelMapper;
     private final RouteRepository routeRepository;
-    private final UserService userService; // Injecting UserService
+    private final UserService userService;
     private final RouteService routeService;
 
     public AttemptService(AttemptRepository attemptRepository, ModelMapper modelMapper, RouteRepository routeRepository, UserService userService, RouteService routeService) {
@@ -33,12 +33,10 @@ public class AttemptService {
         this.routeService = routeService;
     }
 
-    // Private helper method to convert Attempt entity to DTO
     private AttemptDTO convertToDTO(Attempt attempt) {
         return modelMapper.map(attempt, AttemptDTO.class);
     }
 
-    // Fetch an attempt by its ID and throw exception if not found
     public AttemptDTO getById(long id) {
         return attemptRepository.findById(id)
                 .map(this::convertToDTO)
@@ -51,7 +49,7 @@ public class AttemptService {
 
     // Fetch all attempts by user ID, throwing exception if the user does not exist
     public List<AttemptDTO> getAllAttemptsByUserId(long userId) {
-        userService.validateUserExists(userId); // Using UserService for validation
+        userService.validateUserExists(userId);
         return attemptRepository.findAllByUserId(userId)
                 .stream()
                 .map(this::convertToDTO)
@@ -60,7 +58,7 @@ public class AttemptService {
 
     // Fetch all attempts by a specific user for a specific route, ensuring both user and route exist
     public List<AttemptDTO> getAllAttemptsByUserIdForRouteId(long userId, long routeId) {
-        userService.validateUserExists(userId); // Using UserService for validation
+        userService.validateUserExists(userId);
         validateRouteExists(routeId);
         return attemptRepository.findAllByUserIdForRouteId(userId, routeId)
                 .stream()
@@ -107,10 +105,9 @@ public class AttemptService {
         } catch (Exception e) {
             throw new NoAttemptFoundException("Attempt not found");
         }
-        return attemptDTO; //todo?
+        return attemptDTO; 
     }
 
-    // Helper method to ensure the route exists
     private void validateRouteExists(long routeId) {
         routeRepository.findById(routeId)
                 .orElseThrow(() -> new NoRouteFoundException("Route not found"));
